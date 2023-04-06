@@ -1,7 +1,8 @@
 <div class="document-container">
     <app-document-annotation></app-document-annotation>
     <div class="page-container" *ngFor="let page of document?.pages; let pageIndex = index">
-      <img [src]="page.imageUrl" [style.width.px]="page.width" [style.height.px]="page.height" (click)="addAnnotation(pageIndex, annotation)" />
+      <img [src]="page.imageUrl" [style.width]="zoomPercentage+'%'" [style.height]="'100%'" 
+      (click)="addAnnotation(pageIndex, annotation)" />
       <div class="annotations-container" *ngIf="page?.annotations?.length > 0">
         <div class="annotation" *ngFor="let annotation of page?.annotations"
           [style.left.px]="annotation.x"

@@ -1,1 +1,18 @@
-<p>document-controls works!</p>
+<div class="main-controls-container">
+    <div class="zoom-control-container">
+        <div class="zoom-value">
+            <span>{{controls.zoomPercentage}}</span>
+        </div>
+        <button class="btn btn-primary zoom-in-control ms-2" (click)="zoomIn()">
+            +
+        </button>
+        <button class="btn btn-primary zoom-out-control" (click)="zoomOut()">
+            -
+        </button>
+    </div>
+    <div class="save-button">
+        <button class="btn btn-primary">
+            Save
+        </button>
+    </div>
+</div>

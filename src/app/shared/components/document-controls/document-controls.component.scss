@@ -1,0 +1,18 @@
+.main-controls-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    .btn{
+        border: 1px solid #fff;
+    }
+
+    .zoom-control-container {
+        display: inline-flex;
+        align-items: center;
+        
+        .zoom-value {
+            color: #fff;
+        }
+    }
+}
