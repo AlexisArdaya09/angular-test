@@ -1,0 +1,23 @@
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 999;
+    .navbar{
+        height: 60px;
+        background-color: #038b8c;
+        .navbar-brand{
+            color: #fff;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .nav-link {
+            color: #fff;
+            &:hover{
+                color: #ccc;
+            }
+        }
+    }
+}

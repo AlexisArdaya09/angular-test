@@ -1,0 +1,32 @@
+{
+    "id": 1,
+    "name": "Test Document",
+    "description": "Test Document Description",
+    "pages": [
+        {
+            "id": "1",
+            "imageUrl": "assets/pages/1.png",
+            "annotations": []
+        },
+        {
+            "id": "2",
+            "imageUrl": "assets/pages/2.png",
+            "annotations": []
+        },
+        {
+            "id": "3",
+            "imageUrl": "assets/pages/3.png",
+            "annotations": []
+        },
+        {
+            "id": "4",
+            "imageUrl": "assets/pages/4.png",
+            "annotations": []
+        },
+        {
+            "id": "5",
+            "imageUrl": "assets/pages/5.png",
+            "annotations": []
+        }
+    ]
+}
