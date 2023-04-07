@@ -1,4 +1,4 @@
-import { Component, Input,  OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Annotation } from '../../../models/annotation.model';
 import { Page } from '../../../models/document.model';
 
@@ -19,12 +19,10 @@ export class DocumentAnnotationComponent implements OnInit {
   private isAnnotationDragging: boolean = false;
   private canCreateAnnotation: boolean = true;
   private currentAnnotation: any = null;
-  
+
   constructor() {}
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   addAnnotation($event: any): void {
     const annotationsOnHold = this.page.annotations.filter(
@@ -32,7 +30,10 @@ export class DocumentAnnotationComponent implements OnInit {
     );
     if (this.canCreateAnnotation && annotationsOnHold.length === 0) {
       $event.stopPropagation();
-      const lastIndex = this.page.annotations.length === 0? 1 : this.page.annotations.length  + 1;
+      const lastIndex =
+        this.page.annotations.length === 0
+          ? 1
+          : this.page.annotations.length + 1;
       this.page.annotations.push({
         x: $event.offsetX,
         y: $event.offsetY,
@@ -42,7 +43,7 @@ export class DocumentAnnotationComponent implements OnInit {
         pageId: this.page.id,
       });
     } else {
-      this.saveInputValue($event);
+      this.saveValue($event);
     }
   }
 
@@ -51,18 +52,44 @@ export class DocumentAnnotationComponent implements OnInit {
     this.page.annotations = this.page.annotations.filter(
       (annotation) => annotation.id !== annotationId
     );
+    this.canCreateAnnotation = true;
   }
 
-  showInput($event: any, annotation: Annotation) {
+  addImage($event: any, annotation: Annotation) {
+    $event.stopPropagation();
+    annotation.type = 'image';
+    this.currentAnnotation = annotation;
+    this.canCreateAnnotation = false;
+  }
+
+  saveImage($event: any) {
+    $event.stopPropagation();
+    console.log($event);
+    const target = $event.target;
+    if (target instanceof HTMLInputElement) {
+      const file = target.files? target.files[0]: null;
+      if (file) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          this.content = reader.result as string;
+          this.saveValue($event);
+          console.log(this.page.annotations);
+        };
+      }
+    }
+  }
+
+  addText($event: any, annotation: Annotation) {
     $event.stopPropagation();
     annotation.type = 'text';
     this.currentAnnotation = annotation;
     this.canCreateAnnotation = false;
   }
 
-  saveInputValue($event: any) {
+  saveValue($event: any) {
     $event.stopPropagation();
-    if(!this.currentAnnotation || !this.content) return;
+    if (!this.currentAnnotation || !this.content) return;
 
     this.currentAnnotation.content = this.content;
 
@@ -80,7 +107,7 @@ export class DocumentAnnotationComponent implements OnInit {
   onAnnotationMouseMove(event: any, annotation: Annotation) {
     event.stopPropagation();
     console.log('onAnnotationMouseMove', this.isAnnotationDragging);
-  
+
     let timeout: any = setTimeout(() => {
       if (this.isAnnotationDragging) {
         const dx = event.offsetX;
@@ -95,6 +122,6 @@ export class DocumentAnnotationComponent implements OnInit {
 
   onAnnotationMouseUp() {
     console.log('AnnotationMouseUp');
-      this.isAnnotationDragging = false;
+    this.isAnnotationDragging = false;
   }
 }

@@ -5,6 +5,7 @@
     width: 100%;
     height: 100%;
     z-index: 210;
+
     .annotation {
         position: absolute;
         z-index: 300;
@@ -26,6 +27,13 @@
         }
     }
 
+    .annotation-input-container {
+        border: 1px solid #009688;
+        padding: 10px 10px;
+        border-radius: 0.7rem;
+        background: white;
+    }
+
     .annotation-text {
         color: #848484;
         background-color: #ffff0099;
@@ -35,13 +43,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        cursor:move;
+        cursor: move;
         pointer-events: auto;
     }
 
     .annotation-image {
-        display: block;
-        max-width: 100%;
-        max-height: 100%;
+        width: 100%;
+    padding: 20px;
+    background-color: #ffff0099;
     }
 }

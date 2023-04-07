@@ -1,29 +1,56 @@
-<div class="annotations-container" (click)="addAnnotation($event)" (mouseup)="onAnnotationMouseUp()">
+<div
+  class="annotations-container"
+  (click)="addAnnotation($event)"
+  (mouseup)="onAnnotationMouseUp()"
+>
   <div
     class="annotation"
     *ngFor="let annotation of page?.annotations; let annotationIndex = index"
     [style.left.px]="annotation.x"
     [style.top.px]="annotation.y"
-   
   >
     <div class="close-button" (click)="delete($event, annotation.id)">x</div>
     <div
       *ngIf="!annotation.type"
       [style.left.px]="'0'"
       [style.top.px]="'0'"
-      style="position: absolute; z-index: 999"
+      style="position: absolute; z-index: 999; display: flex"
     >
-      <button class="btn btn-primary" (click)="showInput($event, annotation)">Text</button>
+      <button class="btn btn-primary" (click)="addText($event, annotation)">
+        Text
+      </button>
+      <button class="btn btn-primary" (click)="addImage($event, annotation)">
+        Image
+      </button>
     </div>
-    <input
-      #inputText
+    <div
       *ngIf="annotation.type === 'text' && !annotation.content"
-      [(ngModel)]="content"
-      [style.left.px]="'0'"
-      [style.top.px]="'0'"
-      (keydown.enter)="saveInputValue($event)"
-    />
-    <img *ngIf="annotation.type === 'image'" [src]="annotation.content" />
+      class="annotation-input-container"
+    >
+      <input
+        #inputText
+        [(ngModel)]="content"
+        [style.left.px]="'0'"
+        [style.top.px]="'0'"
+        (keydown.enter)="saveValue($event)"
+      />
+    </div>
+    <div
+      *ngIf="annotation.type === 'image' && !annotation.content"
+      class="annotation-input-container"
+    >
+      <input type="file" accept="image/*" (change)="saveImage($event)" />
+      {{ annotation.content }}
+    </div>
+    <div
+        class="annotation-image"
+      *ngIf="annotation.type === 'image' && annotation.content"
+      (mouseenter)="onAnnotationMouseDown($event, annotation)"
+      (mousemove)="onAnnotationMouseMove($event, annotation)"
+    >
+      <img [src]="annotation.content" />
+    </div>
+
     <span
       *ngIf="annotation.type === 'text' && annotation.content"
       class="annotation-text"
