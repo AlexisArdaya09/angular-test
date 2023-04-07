@@ -1,4 +1,4 @@
-<div class="annotations-container" (click)="addAnnotation($event)">
+<div class="annotations-container" (click)="addAnnotation($event)" (mouseup)="onAnnotationMouseUp()">
   <div
     class="annotation"
     *ngFor="let annotation of page?.annotations; let annotationIndex = index"
@@ -6,7 +6,7 @@
     [style.top.px]="annotation.y"
    
   >
-    <div class="close-button" (click)="delete($event, annotationIndex)">x</div>
+    <div class="close-button" (click)="delete($event, annotation.id)">x</div>
     <div
       *ngIf="!annotation.type"
       [style.left.px]="'0'"
@@ -18,14 +18,17 @@
     <input
       #inputText
       *ngIf="annotation.type === 'text' && !annotation.content"
+      [(ngModel)]="content"
       [style.left.px]="'0'"
       [style.top.px]="'0'"
-      (keydown.enter)="saveInputValue($event, annotation, inputText.value)"
+      (keydown.enter)="saveInputValue($event)"
     />
     <img *ngIf="annotation.type === 'image'" [src]="annotation.content" />
     <span
       *ngIf="annotation.type === 'text' && annotation.content"
       class="annotation-text"
+      (mouseenter)="onAnnotationMouseDown($event, annotation)"
+      (mousemove)="onAnnotationMouseMove($event, annotation)"
     >
       {{ annotation.content }}
     </span>

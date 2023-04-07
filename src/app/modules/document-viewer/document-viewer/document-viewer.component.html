@@ -1,4 +1,7 @@
 <div class="document-container">
+    <div *ngIf="error">
+        {{error}}
+    </div>
   <div
     class="page-container"
     *ngFor="let page of document?.pages; let pageIndex = index"

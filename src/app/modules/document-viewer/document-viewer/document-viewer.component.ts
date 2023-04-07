@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { Annotation } from 'src/app/models/annotation.model';
 import { DocumentViewerService } from 'src/app/shared/services/document-viewer/document-viewer.service';
@@ -10,7 +11,7 @@ import { DocumentControlsService } from '../../../shared/components/document-con
   styleUrls: ['./document-viewer.component.scss'],
 })
 export class DocumentViewerComponent implements OnInit {
-  public documentId: number = 1;
+  public documentId: number = 0;
   public document: any;
   public annotation: Annotation = {
     x: 0,
@@ -23,15 +24,20 @@ export class DocumentViewerComponent implements OnInit {
   };
   public zoomPercentage: number = 100;
 
+  public error = "";
   private unsubscribe: Subject<void> = new Subject();
 
   constructor(
+    private route: ActivatedRoute,
     private documentService: DocumentViewerService,
     private documentControlService: DocumentControlsService
   ) {}
 
   ngOnInit(): void {
-    this.getDocument();
+    this.route.params.subscribe(params => {
+      this.documentId = params['id'];
+      this.getDocument();
+    });
 
     this.documentControlService.controlsUpdates
       .pipe(takeUntil(this.unsubscribe))
@@ -43,8 +49,14 @@ export class DocumentViewerComponent implements OnInit {
   }
 
   getDocument(): void {
-    this.documentService.getDocument(this.documentId).subscribe((document) => {
-      this.document = document;
+    this.error = "";
+    this.documentService.getDocument(this.documentId).subscribe({
+      next: (document) => {
+        this.document = document;
+      },
+      error: (error) => {
+        this.error = "Document not found";
+      }
     });
   }
 }

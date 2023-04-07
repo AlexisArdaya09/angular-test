@@ -9,7 +9,7 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: '',
+        path: ':id',
         component: DocumentViewerComponent,
       },
     ],
