@@ -64,7 +64,6 @@ export class DocumentAnnotationComponent implements OnInit {
 
   saveImage($event: any) {
     $event.stopPropagation();
-    console.log($event);
     const target = $event.target;
     if (target instanceof HTMLInputElement) {
       const file = target.files? target.files[0]: null;
@@ -74,7 +73,6 @@ export class DocumentAnnotationComponent implements OnInit {
         reader.onload = () => {
           this.content = reader.result as string;
           this.saveValue($event);
-          console.log(this.page.annotations);
         };
       }
     }
@@ -99,14 +97,12 @@ export class DocumentAnnotationComponent implements OnInit {
   }
 
   onAnnotationMouseDown(event: MouseEvent, annotation: Annotation) {
-    console.log('onAnnotationMouseDown');
     event.stopPropagation();
     this.isAnnotationDragging = true;
   }
 
   onAnnotationMouseMove(event: any, annotation: Annotation) {
     event.stopPropagation();
-    console.log('onAnnotationMouseMove', this.isAnnotationDragging);
 
     let timeout: any = setTimeout(() => {
       if (this.isAnnotationDragging) {
@@ -121,7 +117,6 @@ export class DocumentAnnotationComponent implements OnInit {
   }
 
   onAnnotationMouseUp() {
-    console.log('AnnotationMouseUp');
     this.isAnnotationDragging = false;
   }
 }

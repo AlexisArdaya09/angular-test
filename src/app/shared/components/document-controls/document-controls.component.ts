@@ -28,7 +28,6 @@ export class DocumentControlsComponent implements OnInit {
   }
 
   zoomOut() {
-    console.log(this.controls.zoomLevel)
     if (this.controls.zoomLevel > this.minZoomLevel) {
       this.controls.zoomLevel -= 0.1;
       this.controls.zoomPercentage = this.calcZoomPercentage();
