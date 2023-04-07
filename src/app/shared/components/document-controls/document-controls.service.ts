@@ -6,15 +6,20 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class DocumentControlsService {
-  public controlsUpdates = new BehaviorSubject<DocumentControl | null>(null);
+  public $controlsUpdates = new BehaviorSubject<DocumentControl | null>(null);
+  public $saveAnnotations = new BehaviorSubject<any>(null);
 
   constructor() {}
 
   public resetControlsUpdates() {
-    this.controlsUpdates.next(null);
+    this.$controlsUpdates.next(null);
   }
 
   public updateControls(documentControl: DocumentControl) {
-    this.controlsUpdates.next(documentControl);
+    this.$controlsUpdates.next(documentControl);
+  }
+
+  public saveAnnotations(){
+    this.$saveAnnotations.next(true);
   }
 }

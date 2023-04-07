@@ -43,4 +43,8 @@ export class DocumentControlsComponent implements OnInit {
   calcZoomPercentage(): number{
     return Math.round((this.controls.zoomLevel / this.maxZoomLevel) * 100);
   }
+
+  save(){
+    this.documentControlsService.saveAnnotations();
+  }
 }

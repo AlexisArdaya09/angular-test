@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input,  OnInit } from '@angular/core';
 import { Annotation } from '../../../models/annotation.model';
 import { Page } from '../../../models/document.model';
 
@@ -7,7 +7,7 @@ import { Page } from '../../../models/document.model';
   templateUrl: './document-annotation.component.html',
   styleUrls: ['./document-annotation.component.scss'],
 })
-export class DocumentAnnotationComponent implements OnChanges {
+export class DocumentAnnotationComponent implements OnInit {
   @Input() public page: Page = {
     id: 1,
     imageUrl: '',
@@ -19,12 +19,11 @@ export class DocumentAnnotationComponent implements OnChanges {
   private isAnnotationDragging: boolean = false;
   private canCreateAnnotation: boolean = true;
   private currentAnnotation: any = null;
-
+  
   constructor() {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['page'] && changes['page'].currentValue) {
-    }
+  ngOnInit(): void {
+    
   }
 
   addAnnotation($event: any): void {
@@ -33,20 +32,18 @@ export class DocumentAnnotationComponent implements OnChanges {
     );
     if (this.canCreateAnnotation && annotationsOnHold.length === 0) {
       $event.stopPropagation();
-      const lastIndex = this.page.annotations.length + 1;
+      const lastIndex = this.page.annotations.length === 0? 1 : this.page.annotations.length  + 1;
       this.page.annotations.push({
         x: $event.offsetX,
         y: $event.offsetY,
-        width: 20,
-        height: 20,
         type: null,
         content: '',
         id: lastIndex,
+        pageId: this.page.id,
       });
     } else {
       this.saveInputValue($event);
     }
-    console.log(this.page.annotations)
   }
 
   delete($event: any, annotationId: number) {
