@@ -1,4 +1,4 @@
 export interface DocumentControl {
-    zoomPercentage: number;
-    zoomLevel: number;
-  }
+  zoomPercentage: number;
+  zoomLevel: number;
+}

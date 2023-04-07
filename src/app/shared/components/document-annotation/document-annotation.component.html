@@ -1,1 +1,33 @@
-<p>document-annotation works!</p>
+<div class="annotations-container" (click)="addAnnotation($event)">
+  <div
+    class="annotation"
+    *ngFor="let annotation of page?.annotations; let annotationIndex = index"
+    [style.left.px]="annotation.x"
+    [style.top.px]="annotation.y"
+   
+  >
+    <div class="close-button" (click)="delete($event, annotationIndex)">x</div>
+    <div
+      *ngIf="!annotation.type"
+      [style.left.px]="'0'"
+      [style.top.px]="'0'"
+      style="position: absolute; z-index: 999"
+    >
+      <button class="btn btn-primary" (click)="showInput($event, annotation)">Text</button>
+    </div>
+    <input
+      #inputText
+      *ngIf="annotation.type === 'text' && !annotation.content"
+      [style.left.px]="'0'"
+      [style.top.px]="'0'"
+      (keydown.enter)="saveInputValue($event, annotation, inputText.value)"
+    />
+    <img *ngIf="annotation.type === 'image'" [src]="annotation.content" />
+    <span
+      *ngIf="annotation.type === 'text' && annotation.content"
+      class="annotation-text"
+    >
+      {{ annotation.content }}
+    </span>
+  </div>
+</div>

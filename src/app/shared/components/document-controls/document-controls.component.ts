@@ -12,8 +12,8 @@ export class DocumentControlsComponent implements OnInit {
     zoomPercentage: 100,
     zoomLevel: 1,
   };
-  public minZoomLevel: number = 0.1;
-  public maxZoomLevel: number = 2;
+  public minZoomLevel: number = 0.12;
+  public maxZoomLevel: number = 1;
 
   constructor(private documentControlsService: DocumentControlsService) {}
 
@@ -28,6 +28,7 @@ export class DocumentControlsComponent implements OnInit {
   }
 
   zoomOut() {
+    console.log(this.controls.zoomLevel)
     if (this.controls.zoomLevel > this.minZoomLevel) {
       this.controls.zoomLevel -= 0.1;
       this.controls.zoomPercentage = this.calcZoomPercentage();
@@ -40,6 +41,6 @@ export class DocumentControlsComponent implements OnInit {
   }
 
   calcZoomPercentage(): number{
-    return Math.round((this.controls.zoomLevel * 100) / this.maxZoomLevel);
+    return Math.round((this.controls.zoomLevel / this.maxZoomLevel) * 100);
   }
 }

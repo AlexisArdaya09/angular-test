@@ -19,8 +19,7 @@ export class DocumentViewerComponent implements OnInit {
     height: 20,
     type: 'text',
     content: 'ola',
-    page: 1,
-    id: 1
+    id:1
   };
   public zoomPercentage: number = 100;
 
@@ -47,38 +46,5 @@ export class DocumentViewerComponent implements OnInit {
     this.documentService.getDocument(this.documentId).subscribe((document) => {
       this.document = document;
     });
-  }
-
-  addAnnotation(pageIndex: number, annotation: Annotation): void {
-    if (!this.document.pages[pageIndex].annotations) {
-      this.document.pages[pageIndex].annotations = [];
-    }
-    this.document.pages[pageIndex].annotations.push(annotation);
-  }
-
-  deleteAnnotation(pageIndex: number, annotationIndex: number): void {
-    this.document.pages[pageIndex].annotations.splice(annotationIndex, 1);
-  }
-
-  saveAnnotations(): void {
-    const annotations = this.getAnnotations();
-    console.log(JSON.stringify(annotations));
-  }
-
-  getAnnotations(): Annotation[] {
-    const annotations: Annotation[] = [];
-    this.document.pages.forEach(
-      (page: { annotations: any[] }, pageIndex: any) => {
-        if (page.annotations) {
-          page.annotations.forEach((annotation, annotationIndex) => {
-            const newAnnotation = Object.assign({}, annotation);
-            newAnnotation.page = pageIndex;
-            newAnnotation.id = annotationIndex;
-            annotations.push(newAnnotation);
-          });
-        }
-      }
-    );
-    return annotations;
   }
 }
