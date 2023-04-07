@@ -1,27 +1,29 @@
-# AngularTest
+Document Annotation Application
+===============================
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.1.
+This is a simple Angular application for viewing documents and adding annotations to them. The application allows users to upload a document from a server, zoom in and out of the document, and add annotations to any page of the document. The added annotations can be moved or deleted, and the user can save the result as a JSON file.
 
-## Development server
+## Approach
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+The application is built using Angular framework and utilizes HTML, CSS, and Typescript to provide a user interface for document viewing and annotation. The application has two main components: DocumentViewerComponent and DocumentAnnotationComponent. DocumentViewerComponent displays the document with pagination and scrolling features, and DocumentAnnotationComponent provides the functionality to add annotations, move or delete them.
 
-## Code scaffolding
+## Pros
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- The application is built using the Angular framework, which provides robustness and scalability.
+- The application provides a simple and intuitive interface for viewing documents and adding annotations.
+- The application allows users to save the annotations as a JSON file, which can be used later for other purposes.
+## Cons
 
-## Build
+- The application currently only supports adding text annotations and image annotations, but other types of annotations, such as audio or video annotations, are not supported.
+- The application currently does not support saving the annotations to a server or a database.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Getting Started
 
-## Running unit tests
+To get started with the application, follow the instructions below:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1.  Clone the repository: `git clone https://github.com/AlexisArdaya09/angular-test`
+2.  Install the dependencies: `npm install`.
+3.  Run the application: `ng serve`.
+## Conclusion
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+The Document Annotation Application is a simple and intuitive application for viewing documents and adding annotations to them. While the application has some limitations, such as not supporting other types of annotations or saving annotations to a server or database, it provides a solid foundation for further development and improvements.
